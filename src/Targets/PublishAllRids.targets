@@ -16,21 +16,18 @@
         <Framework>%(Frameworks.Identity)</Framework>
       </Combined>
 
-      <Renamed Include="@(Combined->'%(Identity):%(Framework)')">
+      <Renamed Include="@(Combined-&gt;'%(Identity):%(Framework)')">
         <Runtime>%(Identity)</Runtime>
         <Framework>%(Framework)</Framework>
       </Renamed>
 
       <!-- Transform RuntimeIdentifierForPublish items to project items to pass to MSBuild task -->
-      <ProjectToPublish Include="@(Renamed->'$(MSBuildProjectFullPath)')">
+      <ProjectToPublish Include="@(Renamed-&gt;'$(MSBuildProjectFullPath)')">
         <AdditionalProperties>RuntimeIdentifier=%(Renamed.Runtime);TargetFramework=%(Renamed.Framework)</AdditionalProperties>
       </ProjectToPublish>
     </ItemGroup>
 
-    <MSBuild Projects="@(ProjectToPublish)"
-             Targets="Publish"
-             BuildInParallel="true"
-             />
+    <MSBuild Projects="@(ProjectToPublish)" Targets="Publish" BuildInParallel="true" />
   </Target>
 
 </Project>
